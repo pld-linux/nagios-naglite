@@ -1,0 +1,23 @@
+diff -ur -x .svn -x .git -x .bzr -x CVS /usr/share/naglite/index.php naglite/index.php
+--- /usr/share/naglite/index.php	2011-10-04 16:48:18.000000000 +0300
++++ naglite/index.php	2011-10-31 14:16:17.871040318 +0200
+@@ -16,7 +16,7 @@
+  **/
+ 
+ // Set file path to your nagios status log
+-$statusFile = '/var/cache/nagios3/status.dat';
++$statusFile = '/var/lib/nagios/status.dat';
+ 
+ // Default refresh time in seconds
+ $refresh = 10;
+@@ -27,7 +27,7 @@
+ 
+ // Enable fortune output
+ $enableFortune = false;
+-$fortunePath = "/usr/games/fortune";
++$fortunePath = "/usr/bin/fortune";
+ 
+ /* 
+  * Nothing to change below
+Only in naglite/: index.php~
+Only in naglite/: README.markdown
