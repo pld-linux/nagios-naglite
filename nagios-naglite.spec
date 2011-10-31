@@ -1,4 +1,6 @@
 %define		pname	naglite
+%define		php_min_version 5.1.1
+%include	/usr/lib/rpm/macros.php
 Summary:	Naglite3 – Nagios status monitor for a NOC or operations room
 Name:		nagios-%{pname}
 Version:	1.5
@@ -11,7 +13,10 @@ Source1:	apache.conf
 Source2:	lighttpd.conf
 Patch0:		paths.patch
 URL:		https://github.com/saz/Naglite3
+BuildRequires:	rpm-php-pearprov >= 4.4.2-11
 BuildRequires:	rpmbuild(macros) >= 1.268
+Requires:	php-common >= 4:%{php_min_version}
+Requires:	php-date
 Requires:	webapps
 Requires:	webserver(access)
 Requires:	webserver(alias)
