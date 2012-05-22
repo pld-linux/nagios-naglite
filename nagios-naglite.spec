@@ -3,12 +3,12 @@
 %include	/usr/lib/rpm/macros.php
 Summary:	Naglite3 – Nagios status monitor for a NOC or operations room
 Name:		nagios-%{pname}
-Version:	1.5
+Version:	1.6
 Release:	1
 License:	GPL
 Group:		Applications/WWW
-Source0:	https://github.com/saz/Naglite3/tarball/master/%{pname}.tgz
-# Source0-md5:	29d7f404e6f51a0e0758478ef30a5611
+Source0:	https://github.com/saz/Naglite3/tarball/master/%{pname}-%{version}.tgz
+# Source0-md5:	5f75248d14eb6c9bd2e925729868cbc4
 Source1:	apache.conf
 Source2:	lighttpd.conf
 Patch0:		paths.patch
@@ -36,12 +36,15 @@ operations room. Inspired by Naglite and Naglite2.
 %prep
 %setup -qc
 mv *-Naglite3-*/* .
+mv config.php{.example,}
 %patch0 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_appdir},%{_sysconfdir}}
-cp -p *.php *.css $RPM_BUILD_ROOT%{_appdir}
+cp -p index.php *.css $RPM_BUILD_ROOT%{_appdir}
+cp -p config.php $RPM_BUILD_ROOT%{_sysconfdir}
+ln -s %{_sysconfdir}/config.php $RPM_BUILD_ROOT%{_appdir}
 
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
 cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/lighttpd.conf
@@ -74,4 +77,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apache.conf
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd.conf
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lighttpd.conf
+%attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/config.php
 %{_appdir}
