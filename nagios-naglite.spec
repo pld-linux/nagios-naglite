@@ -4,13 +4,14 @@
 Summary:	Naglite3 – Nagios status monitor for a NOC or operations room
 Name:		nagios-%{pname}
 Version:	1.6
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/WWW
 Source0:	https://github.com/saz/Naglite3/tarball/master/%{pname}-%{version}.tgz
 # Source0-md5:	5f75248d14eb6c9bd2e925729868cbc4
 Source1:	apache.conf
 Source2:	lighttpd.conf
+Source3:	httpd.conf
 Patch0:		paths.patch
 URL:		https://github.com/saz/Naglite3
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
@@ -21,6 +22,7 @@ Requires:	webapps
 Requires:	webserver(access)
 Requires:	webserver(alias)
 Requires:	webserver(php)
+Conflicts:	apache-base < 2.4.0-1
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -48,7 +50,7 @@ ln -s %{_sysconfdir}/config.php $RPM_BUILD_ROOT%{_appdir}
 
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
 cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/lighttpd.conf
-cp -p $RPM_BUILD_ROOT%{_sysconfdir}/{apache,httpd}.conf
+cp -p %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -59,10 +61,10 @@ rm -rf $RPM_BUILD_ROOT
 %triggerin -- apache1 < 1.3.37-3, apache1-base >= 1.3.37-3
 %webapp_unregister apache %{_webapp}
 
-%triggerin -- apache < 2.2.0, apache-base
+%triggerin -- apache-base
 %webapp_register httpd %{_webapp}
 
-%triggerun -- apache < 2.2.0, apache-base
+%triggerun -- apache-base
 %webapp_unregister httpd %{_webapp}
 
 %triggerin -- lighttpd
