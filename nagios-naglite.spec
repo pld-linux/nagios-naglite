@@ -4,7 +4,7 @@
 Summary:	Naglite3 – Nagios status monitor for a NOC or operations room
 Name:		nagios-%{pname}
 Version:	1.6
-Release:	3
+Release:	4
 License:	GPL
 Group:		Applications/WWW
 Source0:	https://github.com/saz/Naglite3/tarball/master/%{pname}-%{version}.tgz
@@ -17,7 +17,7 @@ URL:		https://github.com/saz/Naglite3
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	php(core) >= %{php_min_version}
-Requires:	php-date
+Requires:	php(date)
 Requires:	webapps
 Requires:	webserver(access)
 Requires:	webserver(alias)
