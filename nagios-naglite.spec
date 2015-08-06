@@ -11,7 +11,6 @@ Source0:	https://github.com/saz/Naglite3/tarball/master/%{pname}-%{version}.tgz
 # Source0-md5:	5f75248d14eb6c9bd2e925729868cbc4
 Source1:	apache.conf
 Source2:	lighttpd.conf
-Source3:	httpd.conf
 Patch0:		paths.patch
 URL:		https://github.com/saz/Naglite3
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
@@ -22,7 +21,6 @@ Requires:	webapps
 Requires:	webserver(access)
 Requires:	webserver(alias)
 Requires:	webserver(php)
-Conflicts:	apache-base < 2.4.0-1
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -50,7 +48,7 @@ ln -s %{_sysconfdir}/config.php $RPM_BUILD_ROOT%{_appdir}
 
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
 cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/lighttpd.conf
-cp -p %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
+cp -p $RPM_BUILD_ROOT%{_sysconfdir}/{apache,httpd}.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -61,10 +59,10 @@ rm -rf $RPM_BUILD_ROOT
 %triggerin -- apache1 < 1.3.37-3, apache1-base >= 1.3.37-3
 %webapp_unregister apache %{_webapp}
 
-%triggerin -- apache-base
+%triggerin -- apache < 2.2.0, apache-base
 %webapp_register httpd %{_webapp}
 
-%triggerun -- apache-base
+%triggerun -- apache < 2.2.0, apache-base
 %webapp_unregister httpd %{_webapp}
 
 %triggerin -- lighttpd
