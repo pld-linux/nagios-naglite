@@ -7,8 +7,8 @@ Version:	1.6
 Release:	5
 License:	GPL
 Group:		Applications/WWW
-Source0:	https://github.com/saz/Naglite3/tarball/master/%{pname}-%{version}.tgz
-# Source0-md5:	5f75248d14eb6c9bd2e925729868cbc4
+Source0:	https://github.com/saz/Naglite3/archive/master/%{pname}-%{version}.tar.gz
+# Source0-md5:	5a107b76f318615e1e65e7b1b23afa44
 Source1:	apache.conf
 Source2:	lighttpd.conf
 Patch0:		paths.patch
@@ -35,7 +35,7 @@ operations room. Inspired by Naglite and Naglite2.
 
 %prep
 %setup -qc
-mv *-Naglite3-*/* .
+mv Naglite3-*/* .
 mv config.php{.example,}
 %patch0 -p1
 
