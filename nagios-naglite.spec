@@ -1,6 +1,5 @@
 %define		pname	naglite
 %define		php_min_version 5.1.1
-%include	/usr/lib/rpm/macros.php
 Summary:	Naglite3 – Nagios status monitor for a NOC or operations room
 Name:		nagios-%{pname}
 Version:	1.6
